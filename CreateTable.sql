@@ -28,5 +28,42 @@ Values ('Josh', 'Pester', 'Admin');
 ALTER TABLE BugTrackerDB.Defects
 RENAME COLUMN DefectNum TO DefectID;
 
+ALTER TABLE BugTrackerDB.Defects
+ADD COLUMN CreatedByFK INT(10);
+
+UPDATE BugTrackerDB.Defects
+SET CreatedByFK = 1
+WHERE DefectID = 1;
+
+ALTER TABLE BugTrackerDB.Defects
+ADD CONSTRAINT CreatedByFK
+FOREIGN KEY (CreatedByFK) REFERENCES BugTrackerDB.Users(UserID);
+
+ALTER TABLE BugTrackerDB.Defects
+DROP COLUMN CreatedBy;
+
+ALTER TABLE BugTrackerDB.Defects
+RENAME COLUMN CreatedByFK TO CreatedBy;
+
+ALTER TABLE BugTrackerDB.Defects
+ADD COLUMN AssignedToFK INT(10);
+
+UPDATE BugTrackerDB.Defects
+SET AssignedToFK = 1
+WHERE DefectID = 1;
+
+ALTER TABLE BugTrackerDB.Defects
+ADD CONSTRAINT AssignedToFK
+FOREIGN KEY (AssignedToFK) REFERENCES BugTrackerDB.Users(UserID);
+
+ALTER TABLE BugTrackerDB.Defects
+DROP COLUMN AssignedTo;
+
+ALTER TABLE BugTrackerDB.Defects
+RENAME COLUMN AssignedToFK TO AssignedTo;
+
+SHOW COLUMNS FROM BugTrackerDB.Defects;
+SHOW COLUMNS FROM BugTrackerDB.Users;
+
 SELECT * FROM `BugTrackerDB`.`Defects`;
 SELECT * FROM `BugTrackerDB`.`Users`;
