@@ -10,7 +10,7 @@ public class Defects {
     public int createdBy;
     public int assignedTo;
 
-    public void Defects(int ID, String name, String description,
+    public Defects(int ID, String name, String description,
                         String status, int createdBy, int assignedTo) {
             this.ID = ID;
             this.name = name;
