@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "/usr/local/mysql-connector-j-8.1.0/**/*.jar"
+        ]
+    }
+}
