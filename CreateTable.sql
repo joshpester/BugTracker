@@ -31,6 +31,9 @@ Values ('Michael', 'Maitland', 'Admin');
 ALTER TABLE BugTrackerDB.Defects
 RENAME COLUMN DefectNum TO DefectID;
 
+ALTER TABLE BugTrackerDB.Users
+RENAME COLUMN AdminRole TO UserRole;
+
 ALTER TABLE BugTrackerDB.Defects
 ADD COLUMN CreatedByFK INT(10);
 
