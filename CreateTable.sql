@@ -25,6 +25,9 @@ Values ('Test001', 'This is a first test at adding a defect into the Defects tab
 INSERT INTO BugTrackerDB.Users(FirstName, LastName, AdminRole)
 Values ('Josh', 'Pester', 'Admin');
 
+INSERT INTO BugTrackerDB.Users(FirstName, LastName, AdminRole)
+Values ('Michael', 'Maitland', 'Admin');
+
 ALTER TABLE BugTrackerDB.Defects
 RENAME COLUMN DefectNum TO DefectID;
 
