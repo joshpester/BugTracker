@@ -21,7 +21,8 @@ public class BugTrackerDBConnector {
                 // updateDefect(bugTrackerDBConn, "DefectStatus", "Closed", 6);
                 // addUser(bugTrackerDBConn, "Tom", "Callin", "User");
                 // System.out.println(getDefectValue(bugTrackerDBConn, "DefectName", 1));
-                ResultSet joshDefects = getUserDefects(bugTrackerDBConn, 1);
+                // ResultSet joshDefects = getUserDefects(bugTrackerDBConn, 1);
+                System.out.println(String.format("%.2f%%", getUserPercentage(bugTrackerDBConn, 2)));
             }
         } catch (SQLException ex) {
             System.out.println("Error occurred");
@@ -35,6 +36,52 @@ public class BugTrackerDBConnector {
                 }
             }
         }
+    }
+
+    public static double getUserPercentage(Connection conn, int userID){
+         //Create statement and resultset
+         Statement statement = null;
+         ResultSet resultSet1 = null;
+         ResultSet resultSet2 = null;
+         int userDefectsCount = 0;
+         int totalDefectsCount = 0;
+ 
+         try{
+             //Initialize statement from the connection
+             statement = conn.createStatement();
+ 
+             //Create sql query
+             String sql1 = "SELECT COUNT(*) FROM Defects WHERE CreatedBy = " + userID + ";";
+             String sql2 = "SELECT COUNT(*) FROM Defects;";
+ 
+             //Add the values to the result set
+             resultSet1 = statement.executeQuery(sql1);
+ 
+             if(resultSet1.next()){
+                userDefectsCount = resultSet1.getInt(1);
+             }
+
+             resultSet2 = statement.executeQuery(sql2);
+
+             if(resultSet2.next()){
+                totalDefectsCount = resultSet2.getInt(1);
+             }
+         } catch (SQLException ex) {
+             System.out.println("Error occurred");
+             ex.printStackTrace();
+         } finally {
+             if (conn != null){
+                 try{
+                     statement.close();
+                     resultSet1.close();
+                     resultSet2.close();
+                 } catch (SQLException e) {
+                     e.printStackTrace();
+                 }
+             }
+         }
+
+         return ((double) userDefectsCount / totalDefectsCount) * 100;
     }
 
     public static ResultSet getUserDefects(Connection conn, int userID){
