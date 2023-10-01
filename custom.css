@@ -1,0 +1,35 @@
+/* Increment size of nav pills */
+.nav-pills {
+    white-space: nowrap;
+    overflow-x: auto; /* Add horizontal scrollbar if necessary */  
+    padding-top: 20px;
+    width: 100%                  
+}
+
+.nav-col {
+    padding: 0;
+}
+
+.nav-link {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: black;
+}
+
+.nav-pills .nav-link.active{
+    background-color: lightgray;
+    color: black;
+}
+
+.nav-link:hover {
+    background-color: gray;
+}
+
+.nav-pills .nav-link.active:hover{
+    background-color: gray;
+}
+
+.container {
+    white-space: nowrap;
+    overflow-x: auto; /* Add horizontal scrollbar if necessary */
+}
