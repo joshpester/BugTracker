@@ -27,6 +27,10 @@
     color: black;
 }
 
+.nav-link-bottom {
+    margin-bottom: 60%;
+}
+
 .nav-pills .nav-link.active{
     background-color: lightgray;
     color: black;
@@ -41,9 +45,26 @@
     background-color: gray;
 }
 
+.clickable-row:hover {
+    cursor: pointer;
+}
+
 .bottom-right {
     position: absolute;
     bottom: 2px;
+    right: 2px;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2px;
+    left: 5px;
+}
+
+.top-right {
+    position: absolute;
+    top: 2px;
     right: 2px;
 }
 
@@ -52,6 +73,32 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+}
+
+.circle-total-defects {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid black;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+}
+
+.circle-status-defects {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid black;
     justify-content: center;
     align-items: center;
     font-size: 24px;
