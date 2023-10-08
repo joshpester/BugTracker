@@ -4,5 +4,9 @@
             "lib/**/*.jar",
             "/usr/local/mysql-connector-j-8.1.0/**/*.jar"
         ]
-    }
+    },
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.dependency.syncWithFolderExplorer": false
 }
