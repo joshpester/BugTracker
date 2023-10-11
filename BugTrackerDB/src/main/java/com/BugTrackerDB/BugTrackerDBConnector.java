@@ -1,3 +1,5 @@
+package com.BugTrackerDB;
+
 import java.sql.*;
 
 public class BugTrackerDBConnector {
