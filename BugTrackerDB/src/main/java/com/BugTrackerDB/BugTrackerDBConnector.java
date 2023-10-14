@@ -3,9 +3,16 @@ package com.BugTrackerDB;
 import java.sql.*;
 
 public class BugTrackerDBConnector {
-    
-    public static void main(String[] args) {
-        Connection bugTrackerDBConn = null;
+
+    private Connection bugTrackerDBConn;
+
+    public BugTrackerDBConnector() {
+        this.bugTrackerDBConn = null;
+    }
+
+    //Returns a defectDAO object
+    public DefectDAO getDefectDAO() {
+        DefectDAO defectDAO = null;
 
         try {
             //Set connection url, username, and password
@@ -17,29 +24,17 @@ public class BugTrackerDBConnector {
             bugTrackerDBConn = DriverManager.getConnection(url, username, password);
 
             if(bugTrackerDBConn != null) {
-                System.out.println("Connected to the database BugTrackerDB");
-                // addDefect(conn, "Add Test", "Test on new add Defect method", 1, 2, "Open");
-                // deleteDefect(conn, 4);
-                // updateDefect(bugTrackerDBConn, "DefectStatus", "Closed", 6);
-                // addUser(bugTrackerDBConn, "Tom", "Callin", "User");
-                // System.out.println(getDefectValue(bugTrackerDBConn, "DefectName", 1));
-                // ResultSet joshDefects = getUserDefects(bugTrackerDBConn, 1);
-                System.out.println(String.format("%.2f%%", getUserPercentage(bugTrackerDBConn, 2)));
+                defectDAO = new DefectDAO(bugTrackerDBConn);
             }
         } catch (SQLException ex) {
             System.out.println("Error occurred");
             ex.printStackTrace();
-        } finally {
-            if(bugTrackerDBConn != null) {
-                try {
-                    bugTrackerDBConn.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
         }
+
+        return defectDAO;
     }
 
+    //Returns percentage of defects created by the user
     public static double getUserPercentage(Connection conn, int userID){
          //Create statement and resultset
          Statement statement = null;
@@ -86,6 +81,7 @@ public class BugTrackerDBConnector {
          return ((double) userDefectsCount / totalDefectsCount) * 100;
     }
 
+    //Returns all defects from a certain user
     public static ResultSet getUserDefects(Connection conn, int userID){
         //Create statement and resultset
         Statement statement = null;
@@ -130,6 +126,7 @@ public class BugTrackerDBConnector {
         return resultSet;
     }
 
+    //Returns the Defect value given a certain defectID and attribute
     public static Object getDefectValue(Connection conn, String columnName, int defectNumber){
         //Create statement and resultset
         Statement statement = null;
@@ -166,6 +163,7 @@ public class BugTrackerDBConnector {
         return result;
     }
 
+    //Adds a defect
     public static void addDefect(Connection conn, String DefectName, String DefectDescription, int createdBy, int assignedTo, String status){
         //Create statement
         Statement statement = null;
@@ -195,6 +193,7 @@ public class BugTrackerDBConnector {
         }
     }
 
+    //Deletes a defect
     public static void deleteDefect(Connection conn, int defectNumber){
         //Create statement
         Statement statement = null;
@@ -219,6 +218,7 @@ public class BugTrackerDBConnector {
         }
     }
 
+    //Updates a defect
     public static void updateDefect(Connection conn, String columnName, Object newValue, int defectNumber){
         //Create statement
         Statement statement = null;
@@ -252,6 +252,7 @@ public class BugTrackerDBConnector {
         }
     }
 
+    //Adds a user
     public static void addUser(Connection conn, String firstName, String lastName, String userRole){
         //Create statement
         Statement statement = null;
@@ -280,6 +281,7 @@ public class BugTrackerDBConnector {
         }
     }
 
+    //Deletes a user
     public static void deleteUser(Connection conn, int userID){
         //Create statement
         Statement statement = null;
@@ -304,6 +306,7 @@ public class BugTrackerDBConnector {
         }
     }
 
+    //Updates a user
     public static void updateUser(Connection conn, String columnName, String newValue, int userID){
         //Create statement
         Statement statement = null;
