@@ -3,6 +3,9 @@ package com.BugTrackerDB;
 import java.sql.Blob;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Defect {
     
     private int defectID;
@@ -13,6 +16,20 @@ public class Defect {
     private Blob defectAttachments;
     private int createdBy;
     private int assignedTo;
+
+    //JSON constructor
+    @JsonCreator
+    public Defect(@JsonProperty("defectName") String defectName, @JsonProperty("defectDescription") String defectDescription,
+    @JsonProperty("defectStatus") String defectStatus, @JsonProperty("defectAttachments") Blob defectAttachments, @JsonProperty("createdBy") int createdBy, @JsonProperty("assignedTo") int assignedTo) {
+        this.defectID = 0;
+        this.defectName = defectName;
+        this.defectDescription = defectDescription;
+        this.defectDateTime = LocalDateTime.now();
+        this.defectStatus = defectStatus;
+        this.defectAttachments = defectAttachments;
+        this.createdBy = createdBy;
+        this.assignedTo = assignedTo;
+    }
 
     public Defect(int defectID, String defectName, String defectDescription, String defectStatus, Blob defectAttachments, int createdBy, int assignedTo) {
         this.defectID = defectID;

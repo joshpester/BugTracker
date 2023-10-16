@@ -6,9 +6,14 @@ import com.BugTrackerDB.Defect;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,14 +23,34 @@ public class DefectController {
 
 	private BugTrackerDBConnector bugTrackerDBConnector = new BugTrackerDBConnector();
 
+	//GET method to get a List of all the defects
 	@GetMapping("/defects")
 	public List<Defect> getAllDefects() throws SQLException {
-		System.out.println(bugTrackerDBConnector.getDefectDAO().getAllDefects());
 		return bugTrackerDBConnector.getDefectDAO().getAllDefects();
 	}
 
+	//GET method to get a single defect
+	@GetMapping("/singleDefect")
+	public Defect getSingleDefect(@RequestParam("defectID") int defectID) throws SQLException{
+		return bugTrackerDBConnector.getDefectDAO().getSingleDefect(defectID);
+	}
+
+	//GET method to get the count of the defects in the Defects table
 	@GetMapping("/defectCount")
-	public int getDefectCount() {
+	public int getDefectCount() throws SQLException{
 		return bugTrackerDBConnector.getDefectDAO().getDefectCount();
 	}
+
+	//POST method to add a defect to the Defects table
+	@PostMapping("/addDefect")
+	public ResponseEntity<String> addDefect(@RequestBody Defect newDefect) {
+		try {
+			System.out.println(newDefect);
+			bugTrackerDBConnector.getDefectDAO().addDefect(newDefect);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Defect Created Successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating defect: " + e.getMessage());
+		}
+	}
+
 }
