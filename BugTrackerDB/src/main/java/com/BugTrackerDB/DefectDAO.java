@@ -146,4 +146,34 @@ public class DefectDAO {
             }
         }
     }
+
+    public void editDefect(Defect edittedDefect){
+        //Create statement
+        Statement statement = null;
+
+        try{
+            //Initialize statement from the connection
+            statement = defectsConnection.createStatement();
+
+            //Create sql statement
+            String sql = "UPDATE Defects SET DefectName = \"" + edittedDefect.getDefectName() + "\", DefectDescription = \"" 
+                        + edittedDefect.getDefectDescription() + "\", CreatedBy = " + edittedDefect.getCreatedBy() + ", AssignedTo = " 
+                        + edittedDefect.getAssignedTo() + ", DefectStatus = \"" + edittedDefect.getDefectStatus() + "\" WHERE DefectID = " + edittedDefect.getDefectID() + ";";
+
+            //Edit row in Defects table based on sql statement
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+        } catch (SQLException ex) {
+            System.out.println("Error inserting data");
+            ex.printStackTrace();
+        } finally {
+            if(statement != null) {
+                try{
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
 }

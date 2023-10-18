@@ -45,11 +45,21 @@ public class DefectController {
 	@PostMapping("/addDefect")
 	public ResponseEntity<String> addDefect(@RequestBody Defect newDefect) {
 		try {
-			System.out.println(newDefect);
 			bugTrackerDBConnector.getDefectDAO().addDefect(newDefect);
 			return ResponseEntity.status(HttpStatus.CREATED).body("Defect Created Successfully");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating defect: " + e.getMessage());
+		}
+	}
+
+	//POST method to add a defect to the Defects table
+	@PostMapping("/editDefect")
+	public ResponseEntity<String> editDefect(@RequestBody Defect edittedDefect) {
+		try {
+			bugTrackerDBConnector.getDefectDAO().editDefect(edittedDefect);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Defect Editted Successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error editting defect: " + e.getMessage());
 		}
 	}
 

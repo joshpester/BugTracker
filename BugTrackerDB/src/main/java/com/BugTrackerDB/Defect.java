@@ -17,10 +17,12 @@ public class Defect {
     private int createdBy;
     private int assignedTo;
 
-    //JSON constructor
+    //JSON constructor without DefectID
+    //Used for creating new defect
     @JsonCreator
     public Defect(@JsonProperty("defectName") String defectName, @JsonProperty("defectDescription") String defectDescription,
-    @JsonProperty("defectStatus") String defectStatus, @JsonProperty("defectAttachments") Blob defectAttachments, @JsonProperty("createdBy") int createdBy, @JsonProperty("assignedTo") int assignedTo) {
+    @JsonProperty("defectStatus") String defectStatus, @JsonProperty("defectAttachments") Blob defectAttachments, 
+    @JsonProperty("createdBy") int createdBy, @JsonProperty("assignedTo") int assignedTo) {
         this.defectID = 0;
         this.defectName = defectName;
         this.defectDescription = defectDescription;
@@ -31,7 +33,12 @@ public class Defect {
         this.assignedTo = assignedTo;
     }
 
-    public Defect(int defectID, String defectName, String defectDescription, String defectStatus, Blob defectAttachments, int createdBy, int assignedTo) {
+    //JSON constructor with DefectID
+    //Used for editting existing defects
+    @JsonCreator
+    public Defect(@JsonProperty("defectID") int defectID, @JsonProperty("defectName") String defectName, @JsonProperty("defectDescription") String defectDescription,
+    @JsonProperty("defectStatus") String defectStatus, @JsonProperty("defectAttachments") Blob defectAttachments, 
+    @JsonProperty("createdBy") int createdBy, @JsonProperty ("assignedTo") int assignedTo) {
         this.defectID = defectID;
         this.defectName = defectName;
         this.defectDescription = defectDescription;

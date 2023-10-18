@@ -74,7 +74,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="editDefectForm">
                     <div class="mb-3">
                         <fieldset disabled>
                             <label for="CurrentDefectID" class="form-label">Defect ID</label>
@@ -111,11 +111,11 @@
                         <label for="CurrentDefectAttachments" class="form-label">Attachments</label>
                         <input type="file" class="form-control" id="CurrentDefectAttachments">
                     </div>
-                    </form>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
         </div>

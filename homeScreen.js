@@ -1,18 +1,7 @@
-//Code for connectign with REST endpoint when website is loaded
+//Code for connecting with REST endpoint when website is loaded
 $(document).ready(function () {
     populateTable();
-
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/api/defectCount",
-        dataType: 'json',
-        success: function(data) {
-            populateDefectCount(data);
-        },
-        error: function() {
-            console.error("Error getting defect data");
-        }
-    })
+    populateDefectCount();
 });
 
 //Function to populate table dynamically with defect data
@@ -40,7 +29,7 @@ function populateTable() {
                 row.append($("<td>").addClass("table-column").text(defect.assignedTo));
 
                 table.append(row);
-    });
+            });
         },
         error: function() {
             console.error("Error getting defect data");
@@ -55,8 +44,6 @@ function populateModal(defectID) {
         url: "http://localhost:8080/api/singleDefect?defectID=" + defectID,
         dataType: 'json',
         success: function(data) {
-            console.log(data);
-
             $("#CurrentDefectID").val(data.defectID);
             $("#CurrentDefectName").val(data.defectName);
             $("#CurrentDefectDescription").val(data.defectDescription);
@@ -67,21 +54,63 @@ function populateModal(defectID) {
         error: function() {
             console.error("Error getting defect data");
         }
-    })
+    });
 }
 
 //Call on populateModal when entry is clicked
 $(document).on("click", ".clickable-row", function() {
     var defectID = $(this).data("id");
-    console.log(defectID);
     populateModal(defectID);
 })
 
+//Function to edit a selected defect
+$(document).on("submit", "#editDefectForm", function(event) {
+    event.preventDefault();
+
+    var attachmentsInput = document.getElementById('CurrentDefectAttachments');
+    var attachment = attachmentsInput[0];
+
+    var curentDefectData = {
+        defectID: $("#CurrentDefectID").val(),
+        defectName: $("#CurrentDefectName").val(),
+        defectDescription: $("#CurrentDefectDescription").val(),
+        defectStatus: $("#CurrentDefectStatus").val(),
+        defectAttachments: attachment ? attachment : null, 
+        createdBy: $("#CurrentDefectCreatedBy").val(),
+        assignedTo: $("#CurrentDefectAssignedTo").val()
+    };
+
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:8080/api/editDefect",
+        data: JSON.stringify(curentDefectData),
+        contentType: 'application/json',
+        success: function(response) {
+            console.log(response);
+            populateTable();
+            populateDefectCount();
+        },
+        error: function() {
+            console.error("Error editting defect data");
+        }
+    });
+});
+
 //Function to populate defect counter
-function populateDefectCount(defectCount) {
+function populateDefectCount() {
     var defectCountTag = $("#defectCount");
 
-    defectCountTag.html("Count: " + defectCount);
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/defectCount",
+        dataType: 'json',
+        success: function(defectCount) {
+            defectCountTag.html("Count: " + defectCount);
+        },
+        error: function() {
+            console.error("Error getting defect data");
+        }
+    });
 }
 
 //Reset new defect form
@@ -106,8 +135,6 @@ $(document).on("submit", "#newDefectForm", function(event) {
         createdBy: $("#NewDefectCreatedBy").val(),
         assignedTo: $("#NewDefectAssignedTo").val()
     };
-
-    console.log(newDefectData);
 
     $.ajax({
         method: "POST",
