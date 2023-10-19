@@ -71,5 +71,14 @@ RENAME COLUMN AssignedToFK TO AssignedTo;
 SHOW COLUMNS FROM BugTrackerDB.Defects;
 SHOW COLUMNS FROM BugTrackerDB.Users;
 
+SELECT COUNT(*) FROM `BugTrackerDB`.`Defects` WHERE CreatedBy = 1 AND DefectStatus = "Closed";
+
+SELECT CONCAT(u.FirstName, " ", u.LastName) AS 'User',
+       SUM(CASE WHEN d.DefectStatus = "Open" AND u.UserID = d.CreatedBy THEN 1 ELSE 0 END) AS 'Open',
+       SUM(CASE WHEN d.DefectStatus = "In Progress" AND u.UserID = d.CreatedBy THEN 1 ELSE 0 END) AS 'In Progress',
+       SUM(CASE WHEN d.DefectStatus = "Closed" AND u.UserID = d.CreatedBy THEN 1 ELSE 0 END) AS 'Closed'
+FROM `BugTrackerDB`.`Defects` d, `BugTrackerDB`.`Users` u
+GROUP BY User;
+
 SELECT * FROM `BugTrackerDB`.`Defects`;
 SELECT * FROM `BugTrackerDB`.`Users`;

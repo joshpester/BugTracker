@@ -34,6 +34,30 @@ public class BugTrackerDBConnector {
         return defectDAO;
     }
 
+    //Returns a userDAO object
+    public UserDAO getUserDAO() {
+        UserDAO userDAO = null;
+
+        try {
+            //Set connection url, username, and password
+            String url = "jdbc:mysql://localhost:3306/BugTrackerDB";
+            String username = "root";
+            String password = "Pest2386!";
+
+            //Create connection
+            bugTrackerDBConn = DriverManager.getConnection(url, username, password);
+
+            if(bugTrackerDBConn != null) {
+                userDAO = new UserDAO(bugTrackerDBConn);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error occurred");
+            ex.printStackTrace();
+        }
+
+        return userDAO;
+    }
+
     //Returns percentage of defects created by the user
     public static double getUserPercentage(Connection conn, int userID){
          //Create statement and resultset

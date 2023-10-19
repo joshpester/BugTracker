@@ -21,42 +21,43 @@
             <div class="row row-cols-2 h-100">
                 <div class="col-6 h-100 align-items-center">
                     <div class="row row-cols-1 h-100 align-items-center justify-content-center" style="padding-top: 20%; padding-bottom: 20%;">
-                        <div class="col-12 text-center">
+                        <div class="col-12 d-flex flex-column text-center align-items-center">
                             <h3>Total Defects</h3>
+                            <div class="circle-total-defects" id="totalDefectCount"></div>
                         </div>
-                        <div class="col-12 circle-total-defects">
+                        <!-- <div class="col-12 circle-total-defects">
                               #
-                         </div>
+                         </div> -->
                     </div>
                 </div>
                 <div class="col-6 h-100 align-items-center">
                     <div class="row row-cols-2 h-100 align-items-start" style="padding-top: 20%; padding-bottom: 20%;">
-                        <div class="col-6">
-                            <div class="circle-status-defects" style="color: red;">
-                                #
+                        <div class="col-3">
+                            <div class="circle-status-defects" id="openDefectCount" style="color: red;">
+                                
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-9">
                             <p>
                                 Defects Open
                             </p>
                         </div>
-                        <div class="col-6">
-                            <div class="circle-status-defects" style="color: orange;">
-                                #
+                        <div class="col-3">
+                            <div class="circle-status-defects" id="inProgressDefectCount" style="color: orange;">
+                                
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-9">
                             <p>
                                 Defects In Progress
                             </p>
                         </div>
-                        <div class="col-6">
-                            <div class="circle-status-defects" style="color: green;">
-                                #
+                        <div class="col-3">
+                            <div class="circle-status-defects" id="closedDefectCount" style="color: green;">
+                                
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-9">
                             <p>
                                 Defects Closed
                             </p>

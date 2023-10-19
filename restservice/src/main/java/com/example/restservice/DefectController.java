@@ -2,6 +2,7 @@ package com.example.restservice;
 
 import com.BugTrackerDB.BugTrackerDBConnector;
 import com.BugTrackerDB.Defect;
+import com.BugTrackerDB.UserDefectCounts;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -39,6 +40,28 @@ public class DefectController {
 	@GetMapping("/defectCount")
 	public int getDefectCount() throws SQLException{
 		return bugTrackerDBConnector.getDefectDAO().getDefectCount();
+	}
+
+	//GET method to get the count of the open defects in the Defects table
+	@GetMapping("/openDefectCount")
+	public int getOpenDefectCount() throws SQLException{
+		return bugTrackerDBConnector.getDefectDAO().getOpenDefectCount();
+	}
+	//GET method to get the count of the defects in the Defects table
+	@GetMapping("/inProgressDefectCount")
+	public int getInProgressDefectCount() throws SQLException{
+		return bugTrackerDBConnector.getDefectDAO().getInProgressDefectCount();
+	}
+	//GET method to get the count of the defects in the Defects table
+	@GetMapping("/closedDefectCount")
+	public int getClosedDefectCount() throws SQLException{
+		return bugTrackerDBConnector.getDefectDAO().getClosedDefectCount();
+	}
+
+	//GET method to get the Defect Status counts by User
+	@GetMapping("/defectCountsByUser")
+	public List<UserDefectCounts> getUserDefectCounts() throws SQLException {
+		return bugTrackerDBConnector.getDefectDAO().getDefectCountsByUser();
 	}
 
 	//POST method to add a defect to the Defects table
